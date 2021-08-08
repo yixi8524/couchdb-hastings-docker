@@ -1,70 +1,17 @@
-# CouchDB with geospatial index
-Use CouchDB with geojson and spatial indexes.
+# CouchDB使用地理空间索引
 
-## Setup
-```
-docker run -d kontrollanten/couchdb-hastings
-```
+使用CouchDB用来存储geojson和地理空间索引。
 
-## Run smoke tests
-```
-docker exec -w /couchdb/src/hastings/sample -t $(docker ps -q -f ancestor=kontrollanten/couchdb-hastings) python loader.py
-<bound method Response.json of <Response [200]>>
-```
-## Usage
+Fork From [kontrollanten](https://github.com/kontrollanten)/**[couchdb-hastings-docker](https://github.com/kontrollanten/couchdb-hastings-docker)**。
 
-### Create your geo json database
-```
-curl -X POST localhost:5984/shelters
-```
+使用[cloudant-labs](https://github.com/cloudant-labs)的[hastings](https://github.com/cloudant-labs/hastings)和[easton](https://github.com/cloudant-labs/easton)来创建地理空间数据索引。
 
-### Import some geo data
-```
-curl -X POST -H "Content-Type: application/json" -d '
-{
-  "geometry": {
-    "type": "Point",
-    "coordinates": [59.37131802330678, 18.16711393757631]
-  },
-  "properties": {
-    "name": "Secret room",
-    "address": "Underground"
-  }
-}
-' localhost:5984/shelters
-```
+CouchDB官方[文档](https://docs.couchdb.org/en/3.1.1/)。
 
-### Create a spatial index
-```
-curl -X POST -H "Content-Type: application/json" -d '
-{
-  "_id": "_design/SpatialView",
-  "st_indexes" : {
-    "shelter_positions": {
-      "index" : "function(doc) { if (doc.geometry) { st_index(doc.geometry); } }"
-    }
-  }
-}' localhost:5984/shelters
-```
+cloudant关于GeoSpatial的[介绍文档](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-cloudant-nosql-db-geospatial)以及[api文档](https://cloud.ibm.com/apidocs/cloudant#getgeo)。
 
-### Query geo data
-```
-curl -X GET localhost:5984/shelters/_design/SpatialView/_geo/shelter_positions?bbox=59.26,18.02,59.49,18.32
+关于docker构建的[文档](docs/构建docker.md)。
 
-{
-  "bookmark": "g1AAAALDeJyNkrtKA0EUQJdoIWojpEll8APCPDKvQjcg2S8QK1HnaQhRC7HWJlWwMQHL-Ak2ahkFwTYfIJjGxs4ijQjrjUGx2g0D82CGw-EwrSiKFhpzLlqxx6e24UwNE1FBMHALrgpH8zBH57CkadpvNgqHcCzrIFmVwEvDPZcSca6qgmBDkeAcIZXEvZPSwdLjOINsajCbPcD-UZGilmlCtPXSBsUlogQzIokVTBidxN3BzVq__Zbr-zD1ff0lU8KQpwhEreOws4Zq7CR1PhBDlUjizu6mYBcbWb77E9-zmXwDVs6ZJL5sf-7c17-yqOUJNZ6JqhXCtAoVxi-dUnE5t8JoWiHNr6CCdT997yrF295zBllHZvUf0gXvidETsFeUcW2UQBBVq8AcDfARulvbT8OrxVzZ66nsIF9WBOEUA_LwY330Xm9-AyjxyZs",
-  "rows": [
-    {
-      "id": "1ef78a34dacc85eee8657e625286ec3e",
-      "rev": "1-2d5ed349b3dda7973751532a0f7cfb1e",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          59.37131802330678,
-          18.16711393757631
-        ]
-      }
-    }
-  ]
-}
-```
+关于docker使用的[文档](docs/docker使用.md)。
+
+**注意**：本文档采用的CouchDB版本为 3.1.1，并作为主分支，如果想要2.3.1版本的，可以将分支切换到2.3.1。那个分支没有说明文档，基本上是fork过来稍微改了一下。
