@@ -58,9 +58,12 @@ RUN ./hastings-fixer.sh before-configure;\
     sed -e 's/^bind_address = .*$/bind_address = 0.0.0.0/' -i rel/couchdb/etc/default.ini;\
     sed -e 's!/usr/local/var/log/couchdb/couch.log$!/dev/null!' -i rel/couchdb/etc/default.ini;\
     echo "admin = adminpw" >> rel/couchdb/etc/local.ini
-COPY sample rel/sample/
 WORKDIR /
 RUN cp -r /couchdb/rel rel && rm -rf CsMapDev  CsMapDev-14.01.zip couchdb spatialindex-src-1.8.5 /tmp/* /var/lib/apt/lists/*;\
-    apt-get remove --purge -y nodejs zip unzip vim vim-gui-common build-essential git wget gcc g++ make ssh pkg-config libcurl4-openssl-dev && apt-get autoclean -y && apt-get clean -y && apt-get autoremove -y
-CMD rel/couchdb/bin/couchdb
+    apt-get remove --purge -y nodejs zip unzip vim-gui-common build-essential git wget gcc g++ make ssh pkg-config libcurl4-openssl-dev && apt-get autoclean -y && apt-get clean -y && apt-get autoremove -y;\
+    # sed -i  '/\[couchdb\]/auuid = 9ff639bbb8d44f27a8187ca25d000261' /rel/couchdb/etc/local.ini;\
+    # sed -i '/\[couch_httpd_auth\]/a\\nsecret = 9ff639bbb8d44f27a8187ca25d001076' /rel/couchdb/etc/local.ini;\
+    sed -i '$a\-kernel inet_dist_listen_min 9100 \n -kernel inet_dist_listen_max 9200' /rel/couchdb/etc/vm.args;
+COPY sample rel/sample/
+# CMD rel/couchdb/bin/couchdb
 EXPOSE 5984

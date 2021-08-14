@@ -1,0 +1,63 @@
+version: '2.4'
+
+networks:
+  test:
+    name: fabric_test
+
+services:
+  couchdb0:
+    container_name: couchdb0
+    image: xaotuman/couchdb-hastings-3.1.1:1.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    command: 
+      - sh
+      - -c 
+      - |
+        sed -i  '/\[couchdb\]/auuid = 9ff639bbb8d44f27a8187ca25d000261' /rel/couchdb/etc/local.ini &
+        sed -i '/\[couch_httpd_auth\]/a\\nsecret = 9ff639bbb8d44f27a8187ca25d001076' /rel/couchdb/etc/local.ini &
+        sed -i 's/-name couchdb@127.0.0.1/-name couchdb@couchdb0.fabric_test/' /rel/couchdb/etc/vm.args &
+        /rel/couchdb/bin/couchdb
+    ports:
+      - '5984:5984'
+    networks:
+      - test
+
+  couchdb1:
+    container_name: couchdb1
+    image: xaotuman/couchdb-hastings-3.1.1:1.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    command: 
+      - sh
+      - -c 
+      - |
+        sed -i  '/\[couchdb\]/auuid = 9ff639bbb8d44f27a8187ca25d000261' /rel/couchdb/etc/local.ini &
+        sed -i '/\[couch_httpd_auth\]/a\\nsecret = 9ff639bbb8d44f27a8187ca25d001076' /rel/couchdb/etc/local.ini &
+        sed -i 's/-name couchdb@127.0.0.1/-name couchdb@couchdb1.fabric_test/' /rel/couchdb/etc/vm.args &
+        /rel/couchdb/bin/couchdb
+    ports:
+      - '5985:5984'
+    networks:
+      - test
+
+  couchdb2:
+    container_name: couchdb2
+    image: xaotuman/couchdb-hastings-3.1.1:1.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    command: 
+      - sh
+      - -c 
+      - |
+        sed -i  '/\[couchdb\]/auuid = 9ff639bbb8d44f27a8187ca25d000261' /rel/couchdb/etc/local.ini &
+        sed -i '/\[couch_httpd_auth\]/a\\nsecret = 9ff639bbb8d44f27a8187ca25d001076' /rel/couchdb/etc/local.ini &
+        sed -i 's/-name couchdb@127.0.0.1/-name couchdb@couchdb2.fabric_test/' /rel/couchdb/etc/vm.args &
+        /rel/couchdb/bin/couchdb
+    ports:
+      - '5986:5984'
+    networks:
+      - test

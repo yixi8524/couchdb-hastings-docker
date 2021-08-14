@@ -43,8 +43,8 @@ docker rm $(docker ps -aq -f ancestor=xaotuman/couchdb-hastings-3.1.1:1.0.0)
 导出容器再导入成镜像，会失去构建信息，但是镜像会变小
 
 ```bash
-docker export $(docker ps -aq -f ancestor=xaotuman/couchdb-hastings-3.1.1:1.0.1) | 
-docker import - xaotuman/couchdb-hastings-3.1.1:1.1.0
+docker export $(docker ps -aq -f ancestor=xaotuman/couchdb-hastings-3.1.1:1.0.2) | 
+docker import - xaotuman/couchdb-hastings-3.1.1:1.1.1
 ```
 
 由于CMD和端口输出都丢失了，需要自己指定运行
