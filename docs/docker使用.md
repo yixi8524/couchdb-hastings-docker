@@ -103,7 +103,7 @@ curl -X GET admin:adminpw@localhost:5984/shelters/_design/SpatialView/_geo_info/
 
 ## 地理查询方法（翻译）
 
-cloudant关于GeoSpatial的[介绍文档](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-cloudant-nosql-db-geospatial)以及[api文档](https://cloud.ibm.com/apidocs/cloudant#getgeo)。
+cloudant关于GeoSpatial的[介绍文档](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-cloudant-nosql-db-geospatial)以及[api文档](https://cloud.ibm.com/apidocs/cloudant#getgeo)。
 
 ### 格式
 
