@@ -327,7 +327,7 @@ https://education.cloudant.com/crimes/_design/geodd/_geo/geoidx?g=POLYGON((-71.0
 
 请参阅对在多边形内查找具有地理空间位置的文档的查询的示例响应：
 
-```
+```json
 {
     "bookmark": "g2wAAAABaANkAB9kYmNvcmVAZGIzLmJpZ2JsdWUuY2xvdWRhbnQubmV0bAAAAAJuBAAAAADAbgQA_____2poAm0AAAAgNzlmMTRiNjRjNTc0NjE1ODRiMTUyMTIzZTM5MjQ1MTZGP1vW7X5qnWhq",
     "features": [
