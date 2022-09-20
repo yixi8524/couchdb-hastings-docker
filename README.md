@@ -8,7 +8,7 @@ Fork From [kontrollanten](https://github.com/kontrollanten)/**[couchdb-hastings-
 
 CouchDB官方[文档](https://docs.couchdb.org/en/3.1.1/)。
 
-cloudant关于GeoSpatial的[介绍文档](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-using-cloudant-nosql-db-geospatial)以及[api文档](https://cloud.ibm.com/apidocs/cloudant#getgeo)。
+cloudant关于GeoSpatial的[介绍文档](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-cloudant-nosql-db-geospatial)以及[api文档](https://cloud.ibm.com/apidocs/cloudant#getgeo)。
 
 构建docker的[镜像地址](https://hub.docker.com/r/xaotuman/couchdb-hastings-3.1.1)。
 
